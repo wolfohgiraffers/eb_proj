@@ -7,8 +7,6 @@ permissions:
 on:
   push:
     branches: ["main", "dev/feature1"]
-#  pull_request:
-#    types: [ opened, reopened, synchronize ]
 
 jobs:
   build:
