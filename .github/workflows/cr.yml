@@ -10,8 +10,8 @@ on:
     branches:
       - "main"
       - "dev/feature/*"
-#  pull_request:
-#    types: [ opened, reopened, synchronize ]
+  pull_request:
+    types: [ opened, reopened, synchronize ]
 
 jobs:
   build:
@@ -44,11 +44,19 @@ jobs:
       - name: Show Current Time
         run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}"
         shell: bash
-  test:
+  review:
     runs-on: ubuntu-latest
     steps:
-      - uses: anc95/ChatGPT-CodeReview@main
+      - name: ChatGPT codeReviewer
+        uses: anc95/ChatGPT-CodeReview@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           LANGUAGE: Korean
+          OPENAI_API_ENDPOINT: https://api.openai.com/v1
+          MODEL: gpt-3.5-turbo
+          PROMPT: 기존 코드와의 차이점을 확인하고 관련된 코드 리뷰를 작성해줘. 개선 사항이나 잠재적인 문제점이 있다면 언급해주세요.
+          top_p: 1
+          temperature: 1
+          max_tokens: 10000
+          MAX_PATCH_LENGTH: 10000
