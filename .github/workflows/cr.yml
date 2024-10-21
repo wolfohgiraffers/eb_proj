@@ -12,51 +12,16 @@ on:
     branches:
       - "main"
 
-jobs:
-  build:
+jobs:        
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'corretto'
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
-        shell: bash
-
-      - name: Build with Gradle
-        run: ./gradlew clean build -x test
-        shell: bash
-
-      - name: Get current time
-        uses: 1466587594/get-current-time@v2
-        id: current-time
-        with:
-          format: YYYY-MM-DDTHH-mm-ss
-          utcOffset: "+09:00"
-
-      - name: Show Current Time
-        run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}"
-        shell: bash
-        
-      - name: ChatGPT codeReviewer
+      - uses: actions/checkout@v2
+      - name: ChatGPT 코드리뷰
         uses: anc95/ChatGPT-CodeReview@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        with:
-          language: Korean
-          review_comment_prefix: "한국어 코드 리뷰:\n\n"
-          openai_api_endpoint: https://api.openai.com/v1
-          model: gpt-3.5-turbo
-          prompt: "다음 지시사항을 반드시 따라주세요: 1) 모든 응답은 한국어로만 작성합니다. 2) 다음 코드 변경사항에 대해 검토하고, 혼란스럽거나 불규칙한 부분이 있는지 확인합니다. 3) 코드의 개선점이나 잠재적인 문제점을 지적합니다."
-          top_p: 1
-          temperature: 1
-          max_tokens: 10000
-          max_patch_length: 10000
-          debug: true
+          LANGUAGE: Korean
+          PROMPT: 다음 코드 차이점에 혼동이나 불규칙이 있는지 확인해주세요(코드리뷰)
+
