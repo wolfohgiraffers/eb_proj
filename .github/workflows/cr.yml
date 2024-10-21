@@ -6,12 +6,11 @@ permissions:
   pull-requests: write
 
 on:
+  pull_request:
+    types: [ opened, reopened, synchronize ]
   push:
     branches:
       - "main"
-      - "feature/*"
-  pull_request:
-    types: [ opened, reopened, synchronize ]
 
 jobs:
   build:
@@ -46,10 +45,11 @@ jobs:
         shell: bash
   review:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     steps:
       - name: ChatGPT codeReviewer
         uses: anc95/ChatGPT-CodeReview@main
-        env:
+        with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           LANGUAGE: Korean
