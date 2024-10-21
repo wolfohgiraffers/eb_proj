@@ -1,6 +1,6 @@
 name: ela-prac-service
 
-# cr.yml 이후 pr
+# cr.yml 이후 pr!!
 permissions:
   contents: read
   pull-requests: write
