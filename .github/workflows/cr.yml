@@ -43,7 +43,6 @@ jobs:
       - name: Show Current Time
         run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}"
         shell: bash
-jobs:
   review:
     runs-on: ubuntu-latest
     steps:
@@ -55,7 +54,6 @@ jobs:
 
           # Optional
           LANGUAGE: Korean  # 한국어로 변경!!@@
-          OPENAI_API_ENDPOINT: https://api.openai.com/v1
           OPENAI_API_ENDPOINT: https://api.openai.com/v1
           MODEL: gpt-3.5-turbo # https://platform.openai.com/docs/models
           # PROMPT: Please check if there are any confusions or irregularities in the following code diff
