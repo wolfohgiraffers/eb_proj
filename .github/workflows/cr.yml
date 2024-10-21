@@ -24,12 +24,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
-      - name: Run script
-        run: |
-          #!/bin/bash
-          export LANG=ko_KR.UTF-8
-          echo "한글 출력 테스트"
-          
+
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
         shell: bash
@@ -56,13 +51,12 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
           # Optional
-          LANGUAGE: Korean #한국어로!
+          LANGUAGE: Korean
+          REVIEW_COMMENT_PREFIX: "한국어 코드 리뷰:\n\n"
           OPENAI_API_ENDPOINT: https://api.openai.com/v1
-          MODEL: gpt-3.5-turbo # https://platform.openai.com/docs/models
-          PROMPT: Please check if there are any confusions or irregularities in the following code diff
-          top_p: 1 # https://platform.openai.com/docs/api-reference/chat/create#chat/create-top_p
-          temperature: 1 # https://platform.openai.com/docs/api-reference/chat/create#chat/create-temperature
+          MODEL: gpt-3.5-turbo
+          PROMPT: "다음 지시사항을 반드시 따라주세요: 1) 모든 응답은 한국어로만 작성합니다. 2) 다음 코드 변경사항에 대해 검토하고, 혼란스럽거나 불규칙한 부분이 있는지 확인합니다. 3) 코드의 개선점이나 잠재적인 문제점을 지적합니다."
+          top_p: 1
+          temperature: 1
           max_tokens: 10000
-          MAX_PATCH_LENGTH: 10000 # if the patch/diff length is large than MAX_PATCH_LENGTH, will be ignored and won't review. By default, with no MAX_PATCH_LENGTH set, there is also no limit for the patch/diff length.
-
-
+          MAX_PATCH_LENGTH: 10000
