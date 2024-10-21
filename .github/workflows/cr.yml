@@ -46,9 +46,10 @@ jobs:
         
       - name: ChatGPT codeReviewer
         uses: anc95/ChatGPT-CodeReview@main
-        with:
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        with:
           language: Korean
           review_comment_prefix: "한국어 코드 리뷰:\n\n"
           openai_api_endpoint: https://api.openai.com/v1
