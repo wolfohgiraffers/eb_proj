@@ -52,12 +52,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          LANGUAGE: Korean  # 한국어로 변경!!@@
+          LANGUAGE: Korean
           OPENAI_API_ENDPOINT: https://api.openai.com/v1
-          MODEL: gpt-4o # https://platform.openai.com/docs/models
-          # PROMPT: Please check if there are any confusions or irregularities in the following code diff
-          PROMPT: 기존 코드와의 차이점을 확인하고 관련된 코드 리뷰를 작성해줘
-          top_p: 1 # https://platform.openai.com/docs/api-reference/chat/create#chat/create-top_p
-          temperature: 1 # https://platform.openai.com/docs/api-reference/chat/create#chat/create-temperature
+          MODEL: gpt-4  # gpt-4o에서 gpt-4로 수정
+          PROMPT: |
+            당신은 한국어로 코드 리뷰를 제공하는 전문가입니다. 
+            기존 코드와의 차이점을 확인하고 관련된 코드 리뷰를 한국어로 작성해주세요. 
+            코드의 개선점, 잠재적인 문제점, 그리고 좋은 점들을 상세히 설명해주세요.
+          top_p: 1
+          temperature: 1
           max_tokens: 10000
-          MAX_PATCH_LENGTH: 10000 # if the patch/diff length is large than MAX_PATCH_LENGTH, will be ignored and won't review. By default, with no MAX_PATCH_LENGTH set, there is also no limit for the patch/diff length.
+          MAX_PATCH_LENGTH: 10000
