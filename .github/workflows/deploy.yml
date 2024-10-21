@@ -43,7 +43,6 @@ jobs:
       - name: Show Current Time
         run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}"
         shell: bash
-jobs:
   review:
     runs-on: ubuntu-latest
     steps:
