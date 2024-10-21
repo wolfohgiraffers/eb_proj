@@ -45,18 +45,17 @@ jobs:
         shell: bash
         
       - name: ChatGPT codeReviewer
-        uses: anc95/ChatGPT-CodeReview@v1.0.13
-        env:
+        uses: anc95/ChatGPT-CodeReview@main
+        with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-
-          # Optional
-          LANGUAGE: Korean
-          REVIEW_COMMENT_PREFIX: "한국어 코드 리뷰:\n\n"
-          OPENAI_API_ENDPOINT: https://api.openai.com/v1
-          MODEL: gpt-3.5-turbo
-          PROMPT: "다음 지시사항을 반드시 따라주세요: 1) 모든 응답은 한국어로만 작성합니다. 2) 다음 코드 변경사항에 대해 검토하고, 혼란스럽거나 불규칙한 부분이 있는지 확인합니다. 3) 코드의 개선점이나 잠재적인 문제점을 지적합니다."
+          language: Korean
+          review_comment_prefix: "한국어 코드 리뷰:\n\n"
+          openai_api_endpoint: https://api.openai.com/v1
+          model: gpt-3.5-turbo
+          prompt: "다음 지시사항을 반드시 따라주세요: 1) 모든 응답은 한국어로만 작성합니다. 2) 다음 코드 변경사항에 대해 검토하고, 혼란스럽거나 불규칙한 부분이 있는지 확인합니다. 3) 코드의 개선점이나 잠재적인 문제점을 지적합니다."
           top_p: 1
           temperature: 1
           max_tokens: 10000
-          MAX_PATCH_LENGTH: 10000
+          max_patch_length: 10000
+          debug: true
